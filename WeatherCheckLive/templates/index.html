@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App by Parshant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+    <nav>
+        <a href="/">Home</a>
+    </nav>
+
+    <div class="container">
+        <h1>🌍 Live Weather App</h1>
+        <h2>By Parshant Gulia</h2>
+        <p>Student of B.Tech AIML at Shri Vishwakarma Skill University</p>
+
+        <form method="POST">
+            <input type="text" name="city" placeholder="Enter city name..." required>
+            <button type="submit">Search</button>
+        </form>
+
+        {% if temp is not none %}
+        <h2>🌡️ Current Temperature: {{ temp }}°C</h2>
+        {% endif %}
+
+        {% if graph %}
+        <h2>📈 Temperature Trend</h2>
+        <img src="data:image/png;base64,{{ graph }}" alt="Temperature Graph">
+        {% endif %}
+
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>
