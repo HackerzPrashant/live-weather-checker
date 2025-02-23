@@ -8,13 +8,13 @@ from flask_caching import Cache
 
 app = Flask(__name__)
 
-# Configure caching to store past temperatures
+
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
-# Store past temperatures
+
 temperature_data = {}
 
-API_KEY = "d171b37995fa8f1e93ba45b009b93f37"  # Replace with your OpenWeatherMap API key
+API_KEY = "d171b37995fa8f1e93ba45b009b93f37"  
 
 def fetch_weather(city):
     """Fetch weather data from OpenWeather API"""
@@ -28,17 +28,16 @@ def fetch_weather(city):
         return None
 
 def generate_plot(city):
-    """Generate temperature trend graph"""
     plt.figure(figsize=(6, 4))
     
-    # Get stored temperature data
+   
     times = list(temperature_data[city].keys())
     temps = list(temperature_data[city].values())
 
-    # Plot temperature trend
+   
     plt.plot(times, temps, marker='o', linestyle='-', color='b', label="Past Temperatures")
 
-    # Mark latest temperature
+   
     if temps:
         plt.axhline(y=temps[-1], color='r', linestyle='dashed', label=f"Current Temp: {temps[-1]}°C")
 
@@ -49,7 +48,7 @@ def generate_plot(city):
     plt.legend()
     plt.grid()
 
-    # Save the plot as base64
+  
     img = io.BytesIO()
     plt.savefig(img, format='png', bbox_inches="tight")
     img.seek(0)
